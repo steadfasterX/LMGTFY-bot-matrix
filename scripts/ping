@@ -2,10 +2,11 @@
 
 if [ -n "$CONFIG" ]
 then
-    echo '^!?ping(!|\?)?$'
+    echo '^!?ping(!|\?)?$' # this regular expressions decides when this bot script is triggered
     exit 0
 fi
 
+# the __reply variable is set or can be set in the bot config file
 if [ -n "$__reply" ]
 then
     echo "$__reply"
