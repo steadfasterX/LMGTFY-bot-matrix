@@ -5,6 +5,7 @@ Description=tiny-matrix-bot
 User=tiny-matrix-bot
 Group=users
 Environment=PYTHONUNBUFFERED=1
+# adjust path to fit your config and setup
 ExecStart=/home/tiny-matrix-bot/tiny-matrix-bot/tiny-matrix-bot.py
 ExecStop=/bin/kill -9 $MAINPID
 Restart=on-failure
