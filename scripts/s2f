@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ -n "$CONFIG" ]; then
+        echo '^flow$|^s2f|^flow .*$|^s2f .$|^s-to-f$|^stock-to-flow .*$'
+        exit 0
+fi
+
+# s2f.py must be installed
+type s2f.py >/dev/null 2>&1 || {
+        echo "For s2f to work you must first install the file \"s2f.py\" on the server."
+        echo "Download from https://github.com/8go/bitcoin-stock-to-flow"
+        exit 0
+}
+
+# s2f.py must be in PATH for script to be able to find it
+s2f.py | grep -v "Calculated" | grep -v "Data sources" | tr -s " "
+
+#if [ -n "$__reply" ]
+#then
+#    echo "$__reply"
+#else
+#    echo 'P O N G'
+#fi
