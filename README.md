@@ -1,4 +1,6 @@
-# tiny-matrix-bot
+# tiny-matrix-bot plus
+
+![tiny-matrix-bot icon](tmb-150.png)
 
 This is a simple [Matrix](https://matrix.org) bot based on [matrix-python-sdk](https://github.com/matrix-org/matrix-python-sdk) with no support and no warranty. It was forked from [4nd3r/tiny-matrix-bot](https://github.com/4nd3r/tiny-matrix-bot).
 
@@ -27,7 +29,7 @@ Run something similar to
 ```
 systemctl stop tiny-matrix-bot # stop server in case it is running
 cd tiny-matrix-bot # go to your installation directory
-DEBUG=1 ./tiny-matrix-bot.py # observe debug output
+./tiny-matrix-bot.py --debug # observe debug output
 ```
 
 ## Example bot commands provided
@@ -48,6 +50,7 @@ DEBUG=1 ./tiny-matrix-bot.py # observe debug output
 - date: gives date and time
 - btc: gives Bitcoin BTC price info
 - eth: gives Ethereum price info
+- s2f: print Bitcoin Stock-to-flow price info
 
 ## Additional bot commands provided to Matrix or system administrators
 
