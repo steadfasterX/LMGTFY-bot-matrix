@@ -1,0 +1,9 @@
+# This is just a tiny example of a few lines one could add to the cron file via the command "crontab -e"
+# in order to have some automated checks, status updates or similar. 
+
+# PS Summary
+# Every day, once a day at noon, send a message as bot to a bot room, e.g. to an admin room, with CPU/RAM/DISK usage.
+# The room is configured in the tiny-matrix-bot-send-msg.sh script
+# Adjust the following line to fit YOUR paths!
+0 12 * * * /usr/bin/echo -e "Cron msg:\\n$(/home/YOUR_PATH_HERE/tiny-matrix-bot/scripts/ps)" | /home/YOUR_PATH_HERE/tiny-matrix-bot/tiny-matrix-bot-send-msg.sh
+
