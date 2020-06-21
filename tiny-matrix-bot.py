@@ -17,7 +17,10 @@ from matrix_client.client import MatrixClient
 
 
 class TinyMatrixtBot():
-    def __init__(self):
+    """This class implements a tiny Matrix bot.
+    It also can be used to send messages from the CLI as proxy for the bot.
+    """
+    def __init__(self,args):
         root_path = os.path.dirname(os.path.realpath(__file__))
         self.config = configparser.ConfigParser()
         if "CONFIG" in os.environ:
@@ -28,23 +31,20 @@ class TinyMatrixtBot():
         self.base_url = self.config.get("tiny-matrix-bot", "base_url")
         self.token = self.config.get("tiny-matrix-bot", "token")
         self.connect()
-        logging.debug("arguments {}".format(sys.argv))
-        logging.debug("arguments 1+ {}".format(sys.argv[1:]))
-        logging.debug(
-            "arguments 1+ joined \"{}\"".format(' '.join(sys.argv[1:])))
-        logging.debug("client rooms {}".format(self.client.rooms))
+        logger.debug("arguments {}".format(args))
+        logger.debug("client rooms {}".format(self.client.rooms))
 
-        if len(sys.argv) > 1:
-            if sys.argv[1] not in self.client.rooms:
-                logging.info("arg1 not in client rooms. Exiting ...")
+        if args.room:
+            if args.room not in self.client.rooms:
+                logger.info("Provided room argument is not in client rooms. Exiting ...")
                 sys.exit(1)
-            if len(sys.argv) == 3:
-                text = sys.argv[2]
-                logging.debug("arg2 text \"{}\".".format(text))
+            if args.message:
+                text = args.message
+                logger.debug("Provided message argument \"{}\".".format(text))
             else:
-                text = sys.stdin.read()
-            logger.debug("sending message to {}".format(sys.argv[1]))
-            self.client.rooms[sys.argv[1]].send_text(text)
+                text = sys.stdin.read() # read message from stdin
+            logger.debug("sending message to {}".format(args.room))
+            self.client.rooms[args.room].send_text(text)
             logger.debug("message sent, now exiting")
             sys.exit(0)
         run_path = self.config.get(
@@ -250,8 +250,8 @@ class TinyMatrixtBot():
 
 
 if __name__ == "__main__":
+    logging.basicConfig()  # initialize root logger, a must
     if "DEBUG" in os.environ:
-        logging.basicConfig()  # initialize root logger, a must
         logging.getLogger().setLevel(logging.DEBUG)  # set log level on root logger
     else:
         logging.getLogger().setLevel(logging.INFO)  # set log level on root logger
@@ -262,14 +262,21 @@ if __name__ == "__main__":
     # Add the arguments to the parser
     ap.add_argument("-d", "--debug", required=False,
                     action="store_true", help="Print debug information")
+    ap.add_argument("-r", "--room", required=False,
+                    help="Don't run bot. Just send a message to this bot-room. If --message is provided use that as message, if not provided read message from stdin.")
+    ap.add_argument("-m", "--message", required=False,
+                    help="Don't run bot. Just send this message to the specified bot-room. If not specified, message will be read from stdin.")
     args = ap.parse_args()
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)  # set log level on root logger
         logging.getLogger().info("Debug is turned on.")
     logger = logging.getLogger("tiny-matrix-bot")
+    if args.message and (not args.room):
+        logger.error("If you provide a message you must also provide a room as destination for the message.")
+        sys.exit(2)
 
     try:
-        TinyMatrixtBot()
+        TinyMatrixtBot(args)
     except Exception:
         traceback.print_exc(file=sys.stdout)
         sys.exit(1)
