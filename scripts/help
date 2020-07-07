@@ -5,8 +5,8 @@ if [ -n "$CONFIG" ]; then
 	exit 0
 fi
 
-echo "Try: ping, pong, cputemp, disks, hn, btc, eth, mn, ddg, web, restart, hello, update, check, \
-motd, pick, firewall, backup, totp, date, rss, twitter, tesla, platform, ps, top, alert, users.
+echo "Try: alert  backup  btc  check  cputemp  datetime  ddg  disks  eth  firewall  hello  help  hn  mn  motd  \
+pick  ping  platform  pong  ps  restart  rss  s2f  tesla  tides  top  totp  twitter  update  users  wake  weather  web.
 
 Example bot commands provided:
 
