@@ -20,7 +20,8 @@ class TinyMatrixtBot():
     """This class implements a tiny Matrix bot.
     It also can be used to send messages from the CLI as proxy for the bot.
     """
-    def __init__(self,args):
+
+    def __init__(self, pargs):
         root_path = os.path.dirname(os.path.realpath(__file__))
         self.config = configparser.ConfigParser()
         if "CONFIG" in os.environ:
@@ -31,20 +32,30 @@ class TinyMatrixtBot():
         self.base_url = self.config.get("tiny-matrix-bot", "base_url")
         self.token = self.config.get("tiny-matrix-bot", "token")
         self.connect()
-        logger.debug("arguments {}".format(args))
+        logger.debug("arguments {}".format(pargs))
         logger.debug("client rooms {}".format(self.client.rooms))
 
-        if args.room:
-            if args.room not in self.client.rooms:
-                logger.info("Provided room argument is not in client rooms. Exiting ...")
+        if pargs.room:
+            if pargs.room not in self.client.rooms:
+                logger.info(
+                    "Provided room argument is not in client rooms. Exiting ...")
                 sys.exit(1)
-            if args.message:
-                text = args.message
+            if pargs.message:
+                text = pargs.message
                 logger.debug("Provided message argument \"{}\".".format(text))
             else:
-                text = sys.stdin.read() # read message from stdin
-            logger.debug("sending message to {}".format(args.room))
-            self.client.rooms[args.room].send_text(text)
+                text = sys.stdin.read()  # read message from stdin
+            logger.debug("sending message to {}".format(pargs.room))
+            if pargs.code:
+                logger.debug("sending message in format {}".format("code"))
+                self.client.rooms[pargs.room].send_html(
+                    "<pre><code>" + text + "</code></pre>")
+            elif pargs.html:
+                logger.debug("sending message in format {}".format("html"))
+                self.client.rooms[pargs.room].send_html(text)
+            else:
+                logger.debug("sending message in format {}".format("text"))
+                self.client.rooms[pargs.room].send_text(text)
             logger.debug("message sent, now exiting")
             sys.exit(0)
         run_path = self.config.get(
@@ -245,7 +256,16 @@ class TinyMatrixtBot():
             # strip again to get get rid of leading/trailing newlines and whitespaces
             # left over from previous split
             if p.strip() != "":
-                room.send_text(p.strip())
+                if pargs.code:
+                    room.send_html("<pre><code>" + p.strip() + "</code></pre>")
+                elif ("__format" in script["env"]) and (script["env"]["__format"] == "code"):
+                    room.send_html("<pre><code>" + p.strip() + "</code></pre>")
+                elif pargs.html:
+                    room.send_html(p.strip())
+                elif ("__format" in script["env"]) and (script["env"]["__format"] == "html"):
+                    room.send_html(p.strip())
+                else:
+                    room.send_text(p.strip())
                 sleep(0.1)
 
 
@@ -266,17 +286,23 @@ if __name__ == "__main__":
                     help="Don't run bot. Just send a message to this bot-room. If --message is provided use that as message, if not provided read message from stdin.")
     ap.add_argument("-m", "--message", required=False,
                     help="Don't run bot. Just send this message to the specified bot-room. If not specified, message will be read from stdin.")
-    args = ap.parse_args()
-    if args.debug:
+    # -h already used for --help, -w for "web"
+    ap.add_argument("-w", "--html", required=False,
+                    action="store_true", help="Send message(s) as format \"HTML\". If not specified, message will be sent as format \"TEXT\".")
+    ap.add_argument("-c", "--code", required=False,
+                    action="store_true", help="Send message(s) as format \"CODE\". If not specified, message will be sent as format \"TEXT\". If both --html and --code are specified then --code takes priority.")
+    pargs = ap.parse_args()
+    if pargs.debug:
         logging.getLogger().setLevel(logging.DEBUG)  # set log level on root logger
         logging.getLogger().info("Debug is turned on.")
     logger = logging.getLogger("tiny-matrix-bot")
-    if args.message and (not args.room):
-        logger.error("If you provide a message you must also provide a room as destination for the message.")
+    if pargs.message and (not pargs.room):
+        logger.error(
+            "If you provide a message you must also provide a room as destination for the message.")
         sys.exit(2)
 
     try:
-        TinyMatrixtBot(args)
+        TinyMatrixtBot(pargs)
     except Exception:
         traceback.print_exc(file=sys.stdout)
         sys.exit(1)
