@@ -23,6 +23,22 @@ systemctl start tiny-matrix-bot
 systemctl stop tiny-matrix-bot
 ```
 
+## Usage
+
+- intended audience/users: 
+  - small homeserver set up for a few friends
+  - tinkerers who want to learn how a bot works
+  - people who want to play around with Python code and Matrix
+- create a Matrix account for the bot, name it `bot` for example
+- configure the bot software
+- create the bot service and start the bot or the bot service
+- log in to the before created Matrix `bot` account e.g. via Riot web page
+- manually send invite from `bot` account to a friend (or to yourself)
+- once invite is accepted, reset the bot service (so that the new room will be added to bot service)
+  - if you as admin already have a room with the bot, you can reset the bot by sending it `restart bot` as a message in your Matrix bot room
+- have the newly joined invitee send a `hello` command to the bot for a first test
+- do not encrypt any of the bot rooms, bot does not know how to handle encrypted rooms
+
 ## Debugging
 
 Run something similar to
@@ -61,6 +77,7 @@ With these commands a system administrator can maintain his Matrix installation 
 - restart: restart the bot itself, or Matrix services
 - check: check status, health status, updates, etc. of bot, Matrix and the operating system
 - update: update operating sytem
+- wake: wake up other PCs on the network via wake-on-LAN
 - firewall: list the firewall settings and configuration
 - date: gives date and time of server
 - platform: gives hardware and operating system platform information
@@ -68,3 +85,17 @@ With these commands a system administrator can maintain his Matrix installation 
 - top: gives 5 top CPU and RAM consuming processes
 - alert: shows if any CPU, RAM, or Disk thresholds have been exceeded (best to combine with a cron job, and have the cron job send the bot message to Matrix admin rooms)
 
+## Other Features
+
+- bot can also be used as an CLI app to send messages to rooms where bot is a member
+- when sending messages, 3 message formats are supported:
+  - text: by default
+  - html: like using `/html ...` in a chat
+  - code: for sending code snippets or script outputs, like `/html <pre><code> ... </code></pre>`
+- sample scripts are in `bash` and in `python3`
+- it can be used very easily for monitoring the system. An admin can set up a cron job that runs every 15 minutes, e.g. to check CPU temperature, or to check a log file for signs of an intrusion (e.g. SSH or Web Server log files). If anything abnormal is found by the cron job, the cron job fires off a bot message to the admin. 
+
+## Final Thoughts
+
+- Enjoy and have fun with it, it is cool, and easily extensible. Adjust it to your needs!
+- Pull Requests are welcome :)
