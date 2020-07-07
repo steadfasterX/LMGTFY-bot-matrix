@@ -1,0 +1,53 @@
+#!/bin/bash
+
+if [ -n "$CONFIG" ]; then
+        echo '^wake$|^wakeup$|^wake .*$|^wakeup .*$|^wakelan .*$'
+        exit 0
+fi
+
+args=$(echo "$1" | tr -s ' ' | cut -s -d ' ' -f 2-)
+#echo "wake: arguments: \"$args\""
+if [ "$args" == "" ]; then
+        echo "You must specify which PC to wake up. Try \"wake myPc1\" or similar."
+        exit 0
+fi
+arg1=$(echo "$args" | tr -s ' ' | cut -d ' ' -f 1)
+arg2=$(echo "$args" | tr -s ' ' | cut -d ' ' -f 2)
+
+# $1: which PC to wake up
+# $2: possible password
+function dowake() {
+        arg1="$1"
+        arg2="$2"
+        case "${arg1,,}" in
+        "world")
+                echo "Waking up the world. Done!"
+                ;;
+        "nuc" | "nucvi")
+                # in order to wake up host, one must provide a password
+                # we compare the hashes here, put your hash here
+                if [ "$(echo "$arg2" | sha256sum | cut -d ' ' -f 1)" == "1234567812345678123456781234567812345678123456781234567812345678" ]; then
+                        echo "The bot will wake up host \"$arg1\"."
+                        wakeonlan 00:44:88:cc:ee:ff  # put the MAC of your PC here
+                else
+                        echo "Argument missing or argument wrong. Command ignored due to lack of permissions."
+                fi
+                ;;
+        *)
+                echo "The bot does not know how to wake up host \"${arg1}.\""
+                echo "Only hosts \"nuc\" and \"nucvi\" are configured on server."
+                ;;
+        esac
+}
+
+dowake "$arg1" "$arg2"
+
+exit 0
+
+# The __reply env variable set in the config file is not used in this script
+#if [ -n "$__reply" ]
+#then
+#    echo "$__reply"
+#else
+#    echo 'P O N G'
+#fi
