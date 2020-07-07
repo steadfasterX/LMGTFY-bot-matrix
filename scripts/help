@@ -24,6 +24,8 @@ Example bot commands provided:
 - hn: read Hacker News, fetches front page headlines from Hacker News
 - mn: read Messari News, fetches the latest news articles from Messari
 - date: gives date and time
+- weather: gives weather forecast
+- tides: give tidal forecast
 - btc: gives Bitcoin BTC price info
 - eth: gives Ethereum price info
 - s2f: print Bitcoin Stock-to-Flow info
@@ -38,6 +40,7 @@ keep a watchful eye on his server all through the Matrix bot.
 - disks: see how full your disks or mountpoints are
 - cputemp: monitor the CPU temperatures
 - restart: restart the bot itself, or Matrix services
+- wake: wake up another PC via wake-on-LAN
 - check: check status, health status, updates, etc. of bot, Matrix and the operating system
 - update: update operating sytem
 - firewall: list the firewall settings and configuration
