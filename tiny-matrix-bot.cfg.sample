@@ -9,4 +9,9 @@ token = SuperSecretToken
 #[ping]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
+## reply is optional
 #reply = PONG!
+## format can be: text, html, or code. If not set it is "text" by default.
+#format = text
+## other arguments can be passed into script as well if desired
+#foo = something
