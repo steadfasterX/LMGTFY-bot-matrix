@@ -9,62 +9,73 @@ enabled_scripts = ping,pong,help,cputemp,disks,hn,btc,eth,mn,ddg,web,restart,upd
 [help]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Try: ping, pong, cputemp, disks, hn, btc, eth, mn, ddg, web, restart, hello, update, check, motd, pick, firewall, totp, date, rss, twitter, tesla, platform, ps, top, alert. 
+reply = Try: ping, pong, cputemp, disks, hn, btc, s2f, eth, mn, ddg, web, restart, wake, hello, update, check, motd, pick, firewall, backup, totp, date, weather, tides, rss, twitter, tesla, platform, ps, top, alert, users.
+# format can be: text, html, or code. If not set it is "text" by default.
+format = text
 
 [ping]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
 reply = PONG!
+format = text
 
 [pong]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
 reply = PING!
+format = html
 
 [cputemp]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Prints the CPU temperature.
+reply = Shall I put on a jacket?
 
 [disks]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Prints how much disk space is used up.
+reply = I am hungry. Give me space :)
+# format the output like code, like ```text```
+format = code
 
 [hn]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Read Hacker News
+reply = Read hn somewhere else :)
 
 [btc]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Bitcoin BTC price ticker
+reply = Ticker :)
 
 [eth]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Ethereum ETH price ticker
+reply = Ticker :)
 
 [mn]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Read Messari News
+reply = Messari News :)
 
 [ddg]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Search the web with DuckDuckGo search engine
+reply = Duck duck goes :)
 
 [web]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Surfing the web. Get a web page (no JavaScript please)
+reply = Surfing U.S.A. :)
 
 [restart]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Restarting services
+reply = Restarting services ...
+
+[wake]
+#whitelist = \!rOomId1:example\.com
+#blacklist = (@spammer|\!roOMid2):example\.com
+reply = Wake up another PC via LAN ...
 
 [check]
 #whitelist = \!rOomId1:example\.com
@@ -74,12 +85,12 @@ reply = Checking for status, health status, updates, etc ...
 [motd]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Read Linux Message Of The Day
+reply = Message from our leader :)
 
 [update]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Updating bot, services or the operating system
+reply = Updating stuff :)
 
 [hello]
 #whitelist = \!rOomId1:example\.com
@@ -89,22 +100,41 @@ reply = I will return a compliment :)
 [pick]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Selects one of the choices like: pizza or hamburgers or salad
+reply = pizza or hamburgers or salad
 
 [firewall]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
 reply = List firewall settings
+format = code
+
+[backup]
+#whitelist = \!rOomId1:example\.com
+#blacklist = (@spammer|\!roOMid2):example\.com
+reply = Create backup of important files
 
 [totp]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Return 2FA TOTP code (PIN)
+reply = Return TOTP code (PIN)
 
 [datetime]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
 reply = Return time and date
+format = code
+
+[weather]
+#whitelist = \!rOomId1:example\.com
+#blacklist = (@spammer|\!roOMid2):example\.com
+reply = Return weather forecast
+format = code
+
+[tides]
+#whitelist = \!rOomId1:example\.com
+#blacklist = (@spammer|\!roOMid2):example\.com
+reply = Return tidal forecast
+format = code
 
 [rss]
 #whitelist = \!rOomId1:example\.com
@@ -119,26 +149,38 @@ reply = Read Twitter feeds
 [tesla]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Chat with (dummy) Tesla car
+reply = Chat with Tesla car
 
 [platform]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = List server platform info
+reply = Example with Python program
 
 [ps]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
-reply = Print CPU/RAM/disk utilization
+reply = ps, CPU/RAM/disk utilization
 
 [top]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
 reply = Lists top 5 CPU and RAM consuming processes
+format = code
 
 [alert]
 #whitelist = \!rOomId1:example\.com
 #blacklist = (@spammer|\!roOMid2):example\.com
 reply = Only prints msg if an CPU, RAM or disk usage is beyond an alert level
+
+[users]
+#whitelist = \!rOomId1:example\.com
+#blacklist = (@spammer|\!roOMid2):example\.com
+reply = List registered Matrix users
+
+[s2f]
+#whitelist = \!rOomId1:example\.com
+#blacklist = (@spammer|\!roOMid2):example\.com
+reply = Stock-to-Flow ratio of BTC from messari.io API
+format = code
 
 ##################################################
