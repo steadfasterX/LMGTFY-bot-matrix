@@ -8,7 +8,7 @@ fi
 args=$(echo "$1" | tr -s ' ' | cut -s -d ' ' -f 2-)
 #echo "wake: arguments: \"$args\""
 if [ "$args" == "" ]; then
-        echo "You must specify which PC to wake up. Try \"wake myPc1\" or similar."
+        echo "You must specify which PC to wake up. Try \"wake pc1\" or similar."
         exit 0
 fi
 arg1=$(echo "$args" | tr -s ' ' | cut -d ' ' -f 1)
@@ -23,7 +23,7 @@ function dowake() {
         "world")
                 echo "Waking up the world. Done!"
                 ;;
-        "nuc" | "nucvi")
+        "pc1" | "pc1fullname")
                 # in order to wake up host, one must provide a password
                 # we compare the hashes here, put your hash here
                 if [ "$(echo "$arg2" | sha256sum | cut -d ' ' -f 1)" == "1234567812345678123456781234567812345678123456781234567812345678" ]; then
@@ -35,7 +35,7 @@ function dowake() {
                 ;;
         *)
                 echo "The bot does not know how to wake up host \"${arg1}.\""
-                echo "Only hosts \"nuc\" and \"nucvi\" are configured on server."
+                echo "Only hosts \"pc1\" and \"pc1fullname\" are configured on server."
                 ;;
         esac
 }
