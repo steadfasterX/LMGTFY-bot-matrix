@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -n "$CONFIG" ]; then
+        echo 'backup|^!?backup .*$'
+        exit 0
+fi
+
+echo "Not implemented. This will fail. You need to change this code here."
+
+# adjust this code
+# add your backup code her:
+# e.g. something like this:
+
+MYBACKUPDIR=/foo/bar/Backup
+MYBACKUPFILE="$MYBACKUPDIR/mybackupfile.$(date +"%y%m%d").tar"
+tar -hcf "$MYBACKUPFILE" /foo/bar/Documents/ /foor/bar/Scripts/ /foo/bar/and-so-on
+tar tvf "$MYBACKUPFILE"
+echo ""
+echo "Existing backup files are:"
+ls -lGh "$MYBACKUPDIR"
+
+#if [ -n "$__reply" ]
+#then
+#    echo "$__reply"
+#else
+#    echo 'P O N G'
+#fi
