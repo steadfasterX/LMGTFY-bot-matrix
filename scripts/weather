@@ -1,0 +1,116 @@
+#!/bin/bash
+
+if [ -n "$CONFIG" ]; then
+        echo '^weather$|^tiempo$|^wetter$|^temps$|^weather .*$|^tiempo .*$|^eltiempo .*$|^wetter .*$|^temps .*$'
+        exit 0
+fi
+
+TORIFY="torify"
+
+# tor and torify should be installed for your privacy.
+type torify >/dev/null 2>&1 || {
+        echo "It is recommended that you install the packge \"tor\" on the server for privacy."
+        TORIFY=""
+}
+
+# ansiweather must be installed
+type ansiweather >/dev/null 2>&1 || {
+        # see: https://github.com/fcambus/ansiweather
+        echo "This script requires that you install the packge \"ansiweather\" on the server."
+        exit 0
+}
+
+# $1: location, city
+# $2: optional, "full" for more details
+function getweather() {
+        if [[ "$2" == "full" ]] || [[ "$2" == "f" ]] || [[ "$2" == "more" ]] || [[ "$2" == "+" ]]; then
+                # give a full, long listing of forecast
+                torify curl "wttr.in/${1%,*}?m" # remove everything to the right of comma
+        elif [[ "$2" == "short" ]] || [[ "$2" == "less" ]] || [[ "$2" == "s" ]] || [[ "$2" == "l" ]] || [[ "$2" == "-" ]]; then
+                # give a short, terse listing of forecast
+                torify curl "wttr.in/${1%,*}?m&format=%l:+%C+%t+(%f)+%o+%p" # remove everything to the right of comma
+        else
+                # give a mediaum, default listing of forecast
+                $TORIFY ansiweather -l "$1" | tr "-" "\n" | tr "=>" "\n" 2>&1
+        fi
+}
+
+arg1=$(echo "$1" | tr -s ' ' | cut -s -d ' ' -f 2) # tweather-location, city, required
+arg2=$(echo "$1" | tr -s ' ' | cut -s -d ' ' -f 3) # "full" (optional) or "short" (optional) or "notorify" (optional) or empty
+arg3=$(echo "$1" | tr -s ' ' | cut -s -d ' ' -f 4) # "notorify" or empty
+#echo "arguments : \"$1\""
+#echo "argument 1: \"$arg1\""
+#echo "argument 2: \"$arg2\""
+if [ "$arg1" == "" ]; then
+        echo "Example weather locations are: paris london san-diego new-york"
+        echo "Try \"weather melbourne\" for example to get the Melbourne weather forecast."
+        echo "Try \"weather France\" for example to get the French weather forecast."
+        echo "Try \"weather New+York,US\" for example to get the NYC weather forecast."
+        echo "Try adding full, short, + or - at the end to get more or less information, like \"weather paris +\"."
+        exit 0
+fi
+
+#if [ "$arg2" == "" ]; then
+#       arg2="1" # default, get only last item, if no number specified
+#fi
+
+if [ "$arg2" == "notorify" ] || [ "$arg3" == "notorify" ]; then
+        TORIFY=""
+        echo "Are you sure you do not want to use TOR?"
+        if [ "$arg2" == "notorify" ]; then
+                arg2="$arg3"
+        fi
+fi
+
+function doweather() {
+        arg1="${1,,}"
+        arg2="${2,,}"
+        case "$arg1" in
+        all)
+                for city in san-francisco san-diego paris lima,pe hamburg,de; do
+                        doweather "$city" "$arg2"
+                        echo -e "\n\n\n"
+                done
+                ;;
+        l | london)
+                getweather "London,GB" "$arg2"
+                ;;
+        m | melbourne)
+                getweather "Melbourne,AU" "$arg2"
+                ;;
+        ny | nyc | new-york)
+                getweather "New+York,US" "$arg2"
+                ;;
+        p | paris)
+                getweather "Paris,FR" "$arg2"
+                ;;
+        sd | san-diego)
+                getweather "San+Diego,US" "$arg2"
+                ;;
+        sf | san-fran | san-francisco)
+                getweather "San+Francisco,US" "$arg2"
+                ;;
+        sk | st-kilda)
+                getweather "St+Kilda,AU" "$arg2"
+                ;;
+        w | vienna)
+                getweather "Vienna,AT" "$arg2"
+                ;;
+        # add your own favorite city here, see  https://wttr.in for names of cities
+        *)
+                getweather "$arg1" "$arg2"
+                ;;
+        esac
+}
+
+doweather "$arg1" "$arg2"
+
+exit 0
+
+# The __reply env variable set in the config file is not used in this script
+#if [ -n "$__reply" ]
+#then
+#    echo "$__reply"
+#else
+#    echo 'P O N G'
+#fi
