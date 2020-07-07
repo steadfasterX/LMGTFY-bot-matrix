@@ -57,6 +57,8 @@ cd tiny-matrix-bot # go to your installation directory
 - motd: gives you the Linux Message Of The Day
 - ddg: search the web with DuckDuckGo search
 - web: surf the web, get a web page (JavaScript not supported)
+- tides: get today's low and high tides of your favorite beach
+- weather: get the weather forecast for your favorite city
 - rss: read RSS feeds
 - twitter: read latest user tweets from Twitter (does not always work as info is scraped from web)
 - tesla: chat with your Tesla car (dummy)
