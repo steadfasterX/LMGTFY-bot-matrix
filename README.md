@@ -6,6 +6,12 @@ This is a simple [Matrix](https://matrix.org) bot based on [matrix-python-sdk](h
 
 It is easy to understand, little code, and easy to set up and extend to your personal needs. It is meant for small private Matrix homeservers that are run by individuals for their friends. It is not performant and hence not suitable for industrial size roll-out. 
 
+## Future
+
+In mid-July 2020 the project was moved to this new [repository](https://github.com/8go/matrix-eno-bot) and renamed to `matrix-eno-bot`. The reason for this move was that `tiny-matrix-bot plus` is based on [matrix-python-sdk](https://github.com/matrix-org/matrix-python-sdk). Since `matrix-python-sdk` is no longer actively supported and end-to-end-encryption comes out of the box in `matrix-nio`, the switch to the Matrix SDK [matrix-nio](https://github.com/poljar/matrix-nio) and `nio-template` was made. 
+
+This bot, i.e. [this repo](https://github.com/8go/tiny-matrix-bot), will *not* be maintained. A maintained bot with similar functionality (but a bit more complexity) will be at [matrix-eno-bot](https://github.com/8go/matrix-eno-bot).
+
 ## Installation and Setup
 
 ```
