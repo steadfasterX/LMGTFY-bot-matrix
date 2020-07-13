@@ -1,21 +1,3 @@
-#!/bin/bash
-
-if [ -n "$CONFIG" ]; then
-        echo 'pick|pick .*|^pick .*$|^choose .*|^decide .*|^select .*$'
-        exit 0
-fi
-
-args=$(echo "$1" | tr -s ' ' | cut -s -d ' ' -f 2-)
-#echo "pick: arguments: \"$args\""
-if [ "$args" == "" ]; then
-        echo "You must give me something to chose from. Try \"pick pizza or hamburger or salad\"."
-        exit 0
-fi
-printf 'hmm... let me think, tough choice, how about:  %s\n' \
-        "$(echo "$args" | sed -r 's/(,|\.|[[:punct:]]|\s+(et|ou|und|oder|y|o|and|or)\s+)/\n/gI' | sed '/^[[:space:]]*$/d' | shuf -n1 | sed 's/^[ \t]*//;s/[ \t]*$//')"
-
-# EOF
-ubuntu@pi4:~/tiny-matrix-bot/scripts$ more platform 
 #!/usr/bin/env python3
 
 import platform
@@ -30,10 +12,11 @@ if 'CONFIG' in os.environ:
 
 
 def linux_distribution():
-  try:
-    return platform.linux_distribution()
-  except:
-    return "N/A"
+    try:
+        return platform.linux_distribution()
+    except BaseException:
+        return "N/A"
+
 
 print("""Python version: %s
 linux_distribution: %s
@@ -43,11 +26,11 @@ platform: %s
 uname: %s
 version: %s
 """ % (
-sys.version.split('\n'),
-linux_distribution(),
-platform.system(),
-platform.machine(),
-platform.platform(),
-platform.uname(),
-platform.version(),
+    sys.version.split('\n'),
+    linux_distribution(),
+    platform.system(),
+    platform.machine(),
+    platform.platform(),
+    platform.uname(),
+    platform.version(),
 ))
