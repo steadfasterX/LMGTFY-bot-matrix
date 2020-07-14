@@ -19,7 +19,7 @@ TMP_ALERT=65  # 69C, temperature alert if above x C Celsius
 # CPU Load: 0.22
 
 MEM=$(free -m | awk 'NR==2{printf "%.2f", $3/$2 }') # total mem/used mem (does not look at swap)
-CPU=$(top -bn1 | head -n 1 | cut -d "," -f 4)  # last 5 min CPU load average as "0.03" for 3%
+CPU=$(top -bn1 | head -n 1 | cut -d "," -f 5 | tr -d " ")  # last 5 min CPU load average as "0.03" for 3%
 DSKP=$(df -h | awk '$NF=="/"{printf substr($5, 1, length($5)-1)}')                   # e.g. 25 for 25%
 DSK=$(LC_ALL=en_US.UTF-8 printf "%'.2f" "$(echo "scale=10; $DSKP / 100.0" | bc -l)") # e.g. 0.25
 
