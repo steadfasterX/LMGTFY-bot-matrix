@@ -12,6 +12,8 @@ In mid-July 2020 the project was moved to this new [repository](https://github.c
 
 #### This bot, i.e. [this repo](https://github.com/8go/tiny-matrix-bot), will *not* be maintained. A maintained bot with similar functionality (but a bit more complexity) will be at [matrix-eno-bot](https://github.com/8go/matrix-eno-bot).
 
+Even though unmaintained the `tiny-matrix bot plus` still is meaningful for beginners as-is. It is smaller and simpler than `matrix-eno-bot`. An easier entry point for people who just want a simple bot. But if end-to-end-encryption is a strict requirement, then head right over to `matrix-eno-bot`.
+
 ## Installation and Setup
 
 ```
@@ -54,7 +56,7 @@ cd tiny-matrix-bot # go to your installation directory
 ./tiny-matrix-bot.py --debug # observe debug output
 ```
 
-## Example bot commands provided
+## Bot as personal assistent: Example bot commands provided
 
 - help: to list available bot commands
 - ping: trivial example to have the bot respond
@@ -66,7 +68,7 @@ cd tiny-matrix-bot # go to your installation directory
 - tides: get today's low and high tides of your favorite beach
 - weather: get the weather forecast for your favorite city
 - rss: read RSS feeds
-- twitter: read latest user tweets from Twitter (does not always work as info is scraped from web)
+- twitter: read latest user tweets from Twitter (does not always work as info is scraped from web, lately this web service seems to be down all the time)
 - tesla: chat with your Tesla car (dummy)
 - totp: get 2FA Two-factor-authentication TOTP PIN via bot message
 - hn: read Hacker News, fetches front page headlines from Hacker News
@@ -76,7 +78,7 @@ cd tiny-matrix-bot # go to your installation directory
 - eth: gives Ethereum price info
 - s2f: print Bitcoin Stock-to-flow price info
 
-## Additional bot commands provided to Matrix or system administrators
+## Bot as Admin tool: Additional bot commands provided to Matrix or system administrators
 
 With these commands a system administrator can maintain his Matrix installation and keep a watchful eye on his server all through the Matrix bot. Set the permissions accordingly in the config file to avoid unauthorized use of these bot commands!
 
@@ -100,10 +102,10 @@ With these commands a system administrator can maintain his Matrix installation 
   - text: by default
   - html: like using `/html ...` in a chat
   - code: for sending code snippets or script outputs, like `/html <pre><code> ... </code></pre>`
-- sample scripts are in `bash` and in `python3`
+- sample scripts are mostly in `bash` and some in `python3`
 - it can be used very easily for monitoring the system. An admin can set up a cron job that runs every 15 minutes, e.g. to check CPU temperature, or to check a log file for signs of an intrusion (e.g. SSH or Web Server log files). If anything abnormal is found by the cron job, the cron job fires off a bot message to the admin. 
 
 ## Final Thoughts
 
 - Enjoy and have fun with it, it is cool, and easily extensible. Adjust it to your needs!
-- Pull Requests are welcome :)
+- Pull Requests for bug fixes are welcome! If you want to make a Pull Requests for enhancements then you better make it on [matrix-eno-bot](https://github.com/8go/matrix-eno-bot).
