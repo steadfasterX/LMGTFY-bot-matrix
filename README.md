@@ -93,6 +93,7 @@ With these commands a system administrator can maintain his Matrix installation 
 - platform: gives hardware and operating system platform information
 - ps: print current CPU, RAM and Disk utilization of server
 - top: gives 5 top CPU and RAM consuming processes
+- users: list users that are registered on homeserver
 - alert: shows if any CPU, RAM, or Disk thresholds have been exceeded (best to combine with a cron job, and have the cron job send the bot message to Matrix admin rooms)
 
 ## Other Features
