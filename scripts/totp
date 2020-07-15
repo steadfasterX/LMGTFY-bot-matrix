@@ -33,7 +33,7 @@ function totp() {
         DNOLEADINGZERO=$(echo "$D" | sed 's/^0//')
         # shellcheck disable=SC2004
         SECONDSREMAINING=$((30 - $DNOLEADINGZERO % 30))
-        X=$(oathtool --totp -b "$TOKEN")
+        X=$(oathtool --totp -b "$1")
         echo "$SECONDSREMAINING seconds remaining : $X"
 }
 
