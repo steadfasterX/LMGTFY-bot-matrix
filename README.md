@@ -12,7 +12,7 @@ In mid-July 2020 the project was moved to this new [repository](https://github.c
 
 #### This bot, i.e. [this repo](https://github.com/8go/tiny-matrix-bot), will *not* be maintained. A maintained bot with similar functionality (but a bit more complexity) will be at [matrix-eno-bot](https://github.com/8go/matrix-eno-bot).
 
-Even though unmaintained the `tiny-matrix bot plus` still is meaningful for beginners as-is. It is smaller and simpler than `matrix-eno-bot`. An easier entry point for people who just want a simple bot. But if end-to-end-encryption is a strict requirement, then head right over to `matrix-eno-bot`.
+Even though unmaintained the `tiny-matrix bot plus` still is meaningful for beginners as-is. It is smaller and simpler than `matrix-eno-bot`. An easier entry point for people who just want a simple bot. But if end-to-end-encryption is a strict requirement, then head right over to [matrix-eno-bot](https://github.com/8go/matrix-eno-bot).
 
 ## Installation and Setup
 
