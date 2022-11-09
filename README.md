@@ -1,7 +1,5 @@
 # tiny-matrix-bot plus
 
-![tiny-matrix-bot icon](tmb-150.png)
-
 This is a simple [Matrix](https://matrix.org) bot based on [matrix-python-sdk](https://github.com/matrix-org/matrix-python-sdk) with no support and no warranty. It was forked from [4nd3r/tiny-matrix-bot](https://github.com/4nd3r/tiny-matrix-bot).
 
 It is easy to understand, little code, and easy to set up and extend to your personal needs. It is meant for small private Matrix homeservers that are run by individuals for their friends. It is not performant and hence not suitable for industrial size roll-out. 
@@ -29,6 +27,9 @@ vim /etc/systemd/system/tiny-matrix-bot.service # adjust service to your setup
 systemctl enable tiny-matrix-bot
 systemctl start tiny-matrix-bot
 systemctl stop tiny-matrix-bot
+
+su - <bot user>
+pip3 install matrix-nio
 ```
 
 ## Usage
